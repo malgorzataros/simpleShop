@@ -3,6 +3,28 @@
 require_once 'connection.php';
 
 class Admin {
+
+    static public function setConnection($newConnection){
+        Admin::$conn = $newConnection;
+    }
+    
+    static public function logIn ($email, $password){
+        $sql = "SELECT * FROM Admin WHERE email = '$email'";
+        $result = Admin::$conn->query($sql);
+        if($result->num_rows == 1){
+            $row = $result->fetch_assoc();
+            if(password_verify($password, $row['password'])){
+                return $row['id'];
+            }
+            else {
+                echo Admin::$conn->error;
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+    }
     
     private static $conn;
     
@@ -11,29 +33,10 @@ class Admin {
     private $email;
     private $password;
     
-    static public function setConnection($newConnection){
-        Admin::$conn = $newConnection;
-    }
-    
+       
     // !Info Nie dajemy mozlwiosci zarestrowania sie nowego Admina, konto bedzie tworzone bezposredno w bazie danych, za pomoca phpMyAdmin. 
     
-    static public function logIn (mysqli $conn, $email, $password){
-        $sql = "SELECT * FROM Admin WHERE email = '$email'";
-        $result = $conn->query($sql);
-        if($result->num_rows == 1){
-            $row = $result->fetch_assoc();
-            if(password_verify($password, $row['password'])){
-                return $row['id'];
-            }
-            else {
-                echo $conn->error;
-                return false;
-            }
-        }
-        else{
-            return false;
-        }
-    }
+
     
     public function __construct($newAdminName, $newEmail, $newPassword) {
         $this->id = -1;
@@ -94,11 +97,11 @@ class Admin {
         return $this->password;
     }
     
-    public function saveToDB(mysqli $conn){
+    public function saveToDB(){
         if($this->id == -1){
             $sql = "INSERT INTO Admin (name, email, password) VALUES ('$this->adminName', '$this->email', '$this->password')";
             
-            if($conn->quer($sql)){
+            if(Admin::$conn->quer($sql)){
                 $this->id = $conn->insert_id;
                 return $this;
             }
@@ -113,7 +116,7 @@ class Admin {
                     passwors = '$this->password',
                     WHERE id = $this->id";
         }
-        if ($conn->query($sql) && $conn->affected_rows){
+        if (Adnim::$conn->query($sql) && Admin::$conn->affected_rows){
             return $this;
         }
         else{

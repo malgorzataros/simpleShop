@@ -4,21 +4,13 @@ require_once 'connection.php';
 
 class Item {
     
-    private static $conn;
-    
-    private $id;
-    private $name;
-    private $price;
-    private $description;
-    private $stored;
-    
     static public function setConnection($newConnection){
         Item::$conn = $newConnection;
     }
     
-    static public function loadAllItems(mysqli $conn){
+    static public function loadAllItems(){
         $sql = "SELECT * FROM Item";
-        $result = $conn->query($sql);
+        $result = Item::$conn->query($sql);
         if($result->num_rows > 0){
             $allItems = array();
             foreach ($result as $row){
@@ -30,9 +22,9 @@ class Item {
         return [];
     }
     
-    static public function loadItemFromDBById(mysqli $conn, $id){
+    static public function loadItemFromDBById($id){
         $sql = "SELECT * FROM Item WHERE id = $id";
-        $result = $conn->query($sql);
+        $result = Item::$conn->query($sql);
         if($result->num_rows == 1){
             $row = $result->fetch_assoc();
             $newItem = new Item($row['id'], $row['name'], $row['price'], $row['description'], $row['stored']);
@@ -40,10 +32,18 @@ class Item {
         }
         return false; 
     }
-
-
+    
+    private static $conn;
+    
+    private $id;
+    private $name;
+    private $price;
+    private $description;
+    private $stored;
+    
+    
     public function __construct($newId, $newName, $newPrice, $newDescription, $newStored) {
-        $this->id = -1;
+        $this->setId($newId);    //Dlaczego tu było ustawione -1? NIe lepiej to załatwić w seterze?
         $this->setName($newName);
         $this->setPrice($newPrice);
         $this->setDescription($newDescription);
@@ -54,6 +54,9 @@ class Item {
         if($newId !== -1){
             $this->id = $newId;
         } 
+        else {
+            $this->id = -1;
+        }
     }
     
     public function setName($newName){
@@ -112,15 +115,15 @@ class Item {
         return $this->stored;
     }
     
-    public function createItem(mysqli $conn){
+    public function createItem(){
         if($this->id == -1){
             $sql = "INSERT INTO Item (name, price, description, stored) VALUES ('$this->name', $this->price, '$this->description', $this->stored)";
-            if ($conn->query($sql)){
-                $this->id = $conn->insert_id;
+            if (Item::$conn->query($sql)){
+                $this->id = Item::$conn->insert_id;
                 return TRUE;
             }
             else{
-                echo $conn->error;
+                echo Item::$conn->error;
                 return false;
             }
         }   
@@ -130,10 +133,10 @@ class Item {
         echo $this->id, $this->name, $this->price, $this->description, $this->stored; // poki co showItem w prosty sposob pozniej bedziemy to zmieniac
     }
     
-    public function editItem (mysqli $conn){
+    public function editItem (){
         if ($this->id != -1){
-            $sql = "UPDATE Item SET name = $this->name, price = $this->price, description = $this->description, stored = $this->stored";
-            if($conn->query($sql && $conn->affected_rows)){
+            $sql = "UPDATE Item SET name = '$this->name', price = $this->price, description = '$this->description', stored = $this->stored";
+            if(Item::$conn->query($sql && Item::$conn->affected_rows)){
                 return true;
             }
         }

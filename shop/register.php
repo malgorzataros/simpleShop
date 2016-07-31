@@ -4,18 +4,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     require_once '../src/User.php';
     
     $email = isset($_POST['email']) ? $conn->real_escape_string(trim($_POST['email'])) : null;
-    $psw = isset($_POST['password']) ? $conn->real_escape_string(trim($_POST['psw'])) : null;
+    $password = isset($_POST['password']) ? $conn->real_escape_string(trim($_POST['password'])) : null;
     $passwordConfirmation = isset($_POST['password2']) ? trim($_POST['password2']) : null;
     $name = isset($_POST['name']) ? $conn->real_escape_string(trim($_POST['name'])) : null;
-    $surname = isset($psw['surname']) ? $conn->real_escape_string(trim($_POST['surname'])) : null;
+    $surname = isset($_POST['surname']) ? $conn->real_escape_string(trim($_POST['surname'])) : null;
     
-    $user = User::getUserByEmail ($conn, $email);//!ToDo potrzeba npaisać te metode w klasie user
-    if($email && $password && $password == $password2 && !$user){
+    $user = User::getUserByEmail ($email);
+    if($email && $password && $password == $passwordConfirmation && !$user){
         
-        $newUser = new User(null, $name, $surname, $email, $password);
+        $newUser = new User(-1, $name, $surname, $email, $password);
         var_dump($newUser);
         
-            if ($newUser->savetoDB($conn)){
+            if ($newUser->savetoDB()){
                 header("Location: login.php");
               
             }

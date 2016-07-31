@@ -4,25 +4,18 @@ require_once 'connection.php';
 
 class Order {
     
-    private static $conn;
-    
-    private $id;
-    private $status;
-    private $userId;
-    private $total;
-    
     static public function setConnection($newConnection){
         Order::$conn = $newConnection;
     }
     
     
-    static public function loadOrderById(mysqli $conn, $id){
+    static public function loadOrderById($id){
         $sql = "SELECT `Order`.*, Item.* FROM `Order`
                 JOIN Item_Order ON `Order`.id = Item_Order.order_id 
                 JOIN Item ON Item.id=Item_Order.item_id
                 WHERE `Order`.id = $id";
         
-        $result = $conn->query($sql);
+        $result = Order::$conn->query($sql);
         if ($result->num_rows == 1){
             $row = $result->fetch_assoc();
             $newOrder = new Order($row['id'], $row['status'], $row['user_id'], $row['total']);
@@ -52,8 +45,17 @@ class Order {
         return []; 
     }
     
+    private static $conn;
+    
+    private $id;
+    private $status;
+    private $userId;
+    private $total;
+    
+    
+    
     public function __construct($newId, $newStatus, $newUserId, $newTotal){
-        $this->id = -1;
+        $this->setId($newId);
         $this->setStatus($newStatus);
         $this->setUserId($newUserId);
         $this->setTotal($newTotal);
@@ -64,7 +66,7 @@ class Order {
             $this->id = $newId;
         }
         else{
-            $this->id = 0;
+            $this->id = -1;
         }
     }
     
@@ -114,12 +116,12 @@ class Order {
     public function createOrder(mysqli $conn){
         if($this->id == -1){
             $sql = "INSERT INTO `Order` (status, user_id, total) VALUES ($this->status, $this->userId, $this->total)";
-            if ($conn->query($sql)){
-                $this->id = $conn->insert_id;
+            if (Order::$conn->query($sql)){
+                $this->id = Order::$conn->insert_id;
                 return true;
             }
             else{
-                echo $conn->error;
+                echo Order::$conn->error;
                 return false;
             }
         }

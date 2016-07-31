@@ -4,19 +4,13 @@ require_once 'connection.php';
 
 class Message{
     
-    static private $conn;
-    
-    private $id;
-    private $text;
-    private $userId;
-    
     static public function setConnection($newConnection){
         Message::$conn = $newConnection;
     }
     
-    public static function loadAllReceivedMessages(mysqli $conn, $userId){//!ToDo dodac do klasy User wywoalnie tej metody
+    public static function loadAllReceivedMessages($userId){//!ToDo dodac do klasy User wywoalnie tej metody
         $sql = "SELCECT * FROM Messages WHERE user_id = $userId";
-        $result = $conn->query($sql);
+        $result = Message::$conn->query($sql);
         if ($result->num_rows > 0) {
             $allMsg = array();
             foreach ($result as $row){
@@ -28,8 +22,16 @@ class Message{
         return [];        
     }
     
+    static private $conn;
+    
+    private $id;
+    private $text;
+    private $userId;
+    
+    
+    
     public function __construct($newId, $newText, $newUserId) {
-        $this->id = -1;
+        $this->setId($newId);
         $this->setText($newText);
         $this->setUserId($newUserId);
     }
@@ -39,7 +41,7 @@ class Message{
             $this->id = $newId;
         }
         else{
-            $this->id = 0;
+            $this->id = -1;
         }
     }
     
@@ -73,11 +75,11 @@ class Message{
         return $this->userId;
     }
     
-    public function createMessage(mysqli $conn){
+    public function createMessage(){
         if($this->id == -1){
-            $sql = "INSERT INTO Messages (text, user_id) VALUES ($this->text, $this->user_id)";
-            if($conn->query($sql)){
-                $this->id = $conn->insert_id;
+            $sql = "INSERT INTO Messages (text, user_id) VALUES ('$this->text', $this->user_id)";
+            if(Message::$conn->query($sql)){
+                $this->id = Message::$conn->insert_id;
                 return true;
             }
             return false;

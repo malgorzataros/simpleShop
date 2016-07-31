@@ -1,18 +1,19 @@
 <?php
 
-require_once '../src/connection.php';
-require_once '../src/User.php';
-    
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == "POST"){
+    
+    require_once '../src/connection.php';
+    require_once '../src/User.php';
 
     $email = isset($_POST['email']) ?  $conn->real_escape_string(trim($_POST['email'])) : null;
-    $password = isset($_POST['password']) ? trim($_POST['password']) : null;
+    $password = isset($_POST['password']) ? (trim($_POST['password'])) : null;
     
-    if (strlen($email) >= 5 && strlen($psw) > 0){
-        if($userid = User::logIn($conn, $email, $psw)){
-            $_SESSION['loggedUserId'] = $userid;
+    if (strlen($email) >= 5 && strlen($password) > 0){
+        if($userId = User::LogIn($email, $password)){
+            var_dump($userId);
+            $_SESSION['loggedUserId'] = $userId;
             header("Location: index.php");
         }
         else{

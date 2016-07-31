@@ -26,4 +26,6 @@ class UserTest extends PHPUnit_Framework_TestCase {
         $this->assertAttributeEquals(-1, 'id', $user);
     }
     
+    
+}
 
