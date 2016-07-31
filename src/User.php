@@ -21,6 +21,23 @@ class User {
         }
         
     }
+
+    public static function getUserByEmail($email){
+        $sql = "SELECT * FROM User WHERE email = '$email'";
+        $result = USER::$conn->query($sql);
+        if($result->num_rows == 1){
+            $row = $result->fetch_assoc();
+            $user = new User();
+            $user->setId($row['id']);
+            $user->setName($row['name']);
+            $user->setSurname($row['surname']);
+            $user->setEmail($row['email']);
+            $user->setPassword($row['password']);
+            return $user;
+        } else {
+            return false;
+        }
+    }
     
     static private $conn;
 
@@ -73,7 +90,32 @@ class User {
     public function getPassword(){
         return $this->password;
     }
-    
+
+    public function saveToDB(){
+        if($this->id == -1) {
+            $sql = "INSERT INTO User(name, surname, email, password) VALUE ('$this->name', 
+                   '$this->surname, $this->email', '$this->password')";
+            if(User::$conn->query($sql)) {
+                $this->id = User::$conn->insert_id;
+                return $this;
+            } else {
+                return false;
+            }
+        }
+        else {
+            $sql = "UPDATE User SET 
+                   name = '$this->name',
+                   surname = '$this->surname', 
+                   email = '$this->email',
+                   password = $this->password
+                   WHERE id = $this->id ";
+            if(User::$conn->query($sql)){
+                return $this;
+            } else {
+                return false;
+            }
+        }
+    }
     
     
 }
