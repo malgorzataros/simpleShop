@@ -34,7 +34,7 @@ class Order {
 
     }
     
-    static public function loadAllOrdersByUserId(mysqli $conn, $userId){
+    static public function loadAllOrdersByUserId(mysqli $conn, $userId){//!ToDo tutaj trzeba jeszcze wymyslic jak z tych danych wybrac dane o statusie 1 (niezlone - zakladam ze to koszyk) i pozostale zamowienia zapytanie do bazy SELECT * FROM `Order` WHERE staus IN (2,3,4)
         $sql = "SELECT `Order`.*, Item.* FROM `Order`
                 JOIN Item_Order ON `Order`.id = Item_Order.order_id 
                 JOIN Item ON Item.id = Item_Order.item_id
@@ -126,5 +126,6 @@ class Order {
     }
     // @ToDO zastanawiam sie czy dac mozliwosc edycji badz usuniecia zamowienia?  poniewaz jak sie cos zle doda do zamowienia, to powinna byc taka mozliwosc,
     //albo edycja, ablo usuwanie i tworzenie nowego. Chyba ze pozostanie tylko mail do admina.
+    //EDIT: Na pewno trzeba dac mozliwosc usunieci zamowienia o id = 1 czlyi koszyka.
 }
 

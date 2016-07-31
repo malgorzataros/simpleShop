@@ -50,7 +50,15 @@ CREATE TABLE Product_Order (
         );
 
 CREATE TABLE Status (
-        id INT NOT NULL,
+        id INT AUTO_INCREMENT,
         status_name VARCHAR(30),
         PRIMARY KEY(id)
         );
+        
+CREATE TABLE Pictures (
+        id INT AUTO_INCREMENT,
+        item_id INT NOT NULL,
+        file_path TEXT NOT NULL,
+        PRIMARY KEY (id),
+        FOREIGN KEY (item_id) REFERENCES Item(id)
+);
