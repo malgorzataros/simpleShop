@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<dataset>
+    <User 
+        id='1'
+        email='email@example.com'
+        psw='$2y$10$t9hDIccSvfhpMCJpcuOL0uYs9v6b4jqqk4aIAz0dgUAFhnLW73OcO'
+        fullName='User1'
+        active='1'    
+    />
+    
+    <User 
+        id='2'
+        email='email1@example.com'
+        psw='$2y$10$cnd8Y3nLlyEOi7xHZrCJJuBzAs8GUuw2f0TdgrptZFL9zgN7IJqhS'
+        fullName='User2'
+        active='0'    
+    />
+          
+</dataset>-->
+
+<dataset>
+    <User
+        id=''
+        name=''
+        surname=''
+        email=''
+        password=''
+    />
+    
+    <User
+        id=''
+        name=''
+        surname=''
+        email=''
+        password=''
+    />
+</dataset>
