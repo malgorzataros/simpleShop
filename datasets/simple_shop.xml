@@ -1,37 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--<dataset>
-    <User 
-        id='1'
-        email='email@example.com'
-        psw='$2y$10$t9hDIccSvfhpMCJpcuOL0uYs9v6b4jqqk4aIAz0dgUAFhnLW73OcO'
-        fullName='User1'
-        active='1'    
-    />
-    
-    <User 
-        id='2'
-        email='email1@example.com'
-        psw='$2y$10$cnd8Y3nLlyEOi7xHZrCJJuBzAs8GUuw2f0TdgrptZFL9zgN7IJqhS'
-        fullName='User2'
-        active='0'    
-    />
-          
-</dataset>-->
-
 <dataset>
     <User
-        id=''
-        name=''
-        surname=''
-        email=''
-        password=''
+        id='1'
+        name='Gosia'
+        surname='Roś'
+        email='gosia@q.pl'
+        password='$2y$10$qA8su3Qiq3yjjQGxPuUbW.W1UBfdwReKpHWYmgynkIr7u.ErtXmyu'
     />
     
     <User
-        id=''
-        name=''
-        surname=''
-        email=''
-        password=''
+        id='2'
+        name='Maciek'
+        surname='Kaczmarski'
+        email='maciek@q.pl'
+        password='$2y$10$wDIdcnt2xbCUFdgW6QuKIOJanIFkgTGboHs2gy7k9bUkrgxaJE77O'
     />
+    
+    <Item
+        id='1'
+        name='Monitor 26'
+        price='1010'
+        decription='Monitor o przekatnej 26 cali.'
+        stored='6'
+    />
+    
+    <Item
+        id='2'
+        name='Klawiatura'
+        price='56.65'
+        decription='Klawiatura qwerty w kolorze czarnym'
+        stored='36'
+    />
+    
+    <Item
+        id='3'
+        name='Mysz laserowa'
+        price='79.99'
+        decription='Mysz laserowa, idealna dla graczy'
+        stored='10'
+    />
+    
+    <Item
+        id='4'
+        name='Kabel HDMI'
+        price='25.89'
+        decription='Kabel HDMI 3m'
+        stored='29'
+    />
+    
+    <Message
+        id='1'
+        text='Towar wyslany'
+        user_id='2'
+    />
+    
+    <Message
+        id='1'
+        text='Platnosc przyjeta'
+        user_id='1'
+    />
+      
+    <Order
+        id='1'
+        status='2'
+        user_id='1'
+        total='79.99'
+    />
+    
+    <Order
+        id='2'
+        status='3'
+        user_id='2'
+        total='1035.89'
+    />
+    
+    
 </dataset>
