@@ -21,6 +21,7 @@ class ItemTests extends PHPUnit_Extensions_Database_TestCase{
     }
     
     public static function setUpBeforeClass(){
+        //aaa
         $servername = 'localhost';//nazwa servera
         $username = 'root';//nazwa uzytkownika
         $password = 'coderslab';//haslo
