@@ -14,7 +14,7 @@ class Message{
         if ($result->num_rows > 0) {
             $allMsg = array();
             foreach ($result as $row){
-                $newMsg = new Message($row['id'], $row['text'], $row['user_id']);
+                $newMsg = new Message($row['id'], $row['text'], $row['user_id'], $row['admin_id']);
                 $allMsg[] = $newMsg;
             }
             return $allMsg;
@@ -27,13 +27,15 @@ class Message{
     private $id;
     private $text;
     private $userId;
+    private $adminId;
     
     
     
-    public function __construct($newId, $newText, $newUserId) {
+    public function __construct($newId, $newText, $newUserId, $newAdminId) {
         $this->setId($newId);
         $this->setText($newText);
         $this->setUserId($newUserId);
+        $this->setAdminId($newAdminId);
     }
     
     public function setId($newId){
@@ -63,6 +65,15 @@ class Message{
         }
     }
     
+    public function setAdminId($newAdminId){
+        if(isset($newAdminId) && is_integer($newAdminId)){
+            $this->userId = $newAdminId;
+        }
+        else{
+            $this->id = 0;
+        }
+    }
+    
     public function getId(){
         return $this->id;
     }
@@ -84,5 +95,9 @@ class Message{
             }
             return false;
         }
+    }
+    
+    public function showMessage(){
+        echo $this->text;
     }
 }

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
+    <Admin
+        id='2'
+        name='Admin'
+        email='admin@test.pl'
+        password='$2y$10$.PkRcll/B0PcEe7u.lp9juoBMXBI4P9lJ6MDfPtMU4882t5W5Kb0O'
+    />
     <User
         id='1'
         name='Gosia'
@@ -20,7 +26,7 @@
         id='1'
         name='Monitor 26'
         price='1010'
-        decription='Monitor o przekatnej 26 cali.'
+        description='Monitor o przekatnej 26 cali.'
         stored='6'
     />
     
@@ -28,7 +34,7 @@
         id='2'
         name='Klawiatura'
         price='56.65'
-        decription='Klawiatura qwerty w kolorze czarnym'
+        description='Klawiatura qwerty w kolorze czarnym'
         stored='36'
     />
     
@@ -36,7 +42,7 @@
         id='3'
         name='Mysz laserowa'
         price='79.99'
-        decription='Mysz laserowa, idealna dla graczy'
+        description='Mysz laserowa, idealna dla graczy'
         stored='10'
     />
     
@@ -44,20 +50,22 @@
         id='4'
         name='Kabel HDMI'
         price='25.89'
-        decription='Kabel HDMI 3m'
+        description='Kabel HDMI 3m'
         stored='29'
     />
     
-    <Message
+<!--    <Messages
         id='1'
         text='Towar wyslany'
         user_id='2'
+        admin_id='1'
     />
     
-    <Message
-        id='1'
+    <Messages
+        id='2'
         text='Platnosc przyjeta'
         user_id='1'
+        admin_id='1'-->
     />
       
     <Order
@@ -73,6 +81,8 @@
         user_id='2'
         total='1035.89'
     />
+    
+
     
     
 </dataset>
