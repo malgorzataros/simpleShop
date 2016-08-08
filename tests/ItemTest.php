@@ -21,6 +21,7 @@ class ItemTests extends PHPUnit_Extensions_Database_TestCase{
     }
     
     public static function setUpBeforeClass(){
+        parent::setUpBeforeClass();
         $servername = 'localhost';//nazwa servera
         $username = 'root';//nazwa uzytkownika
         $password = 'coderslab';//haslo
@@ -37,7 +38,8 @@ class ItemTests extends PHPUnit_Extensions_Database_TestCase{
  
     
     public function testIfMethodLoadsAllObjects(){
-        $this->assertInstanceOf("Item", Item::loadAllItems());
+        var_dump(Item::loadAllItems());
+        $this->assertArrayHasKey(0, Item::loadAllItems());
     }
 }
     

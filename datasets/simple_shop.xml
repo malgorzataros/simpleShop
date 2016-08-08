@@ -54,20 +54,28 @@
         stored='29'
     />
     
-<!--    <Messages
+    <Messages
         id='1'
         text='Towar wyslany'
         user_id='2'
-        admin_id='1'
+        admin_id='2'
     />
     
     <Messages
         id='2'
         text='Platnosc przyjeta'
         user_id='1'
-        admin_id='1'-->
+        admin_id='2'
     />
-      
+     <Status
+        id='2'
+        status_name='Zapakowane'
+    />
+    <Status
+        id='3'
+        status_name='Wyslane'
+    />
+
     <Order
         id='1'
         status='2'
@@ -82,7 +90,7 @@
         total='1035.89'
     />
     
-
+    
     
     
 </dataset>
