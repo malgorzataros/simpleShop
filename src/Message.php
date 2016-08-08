@@ -9,7 +9,7 @@ class Message{
     }
     
     public static function loadAllReceivedMessages($userId){//!ToDo dodac do klasy User wywoalnie tej metody
-        $sql = "SELCECT * FROM Messages WHERE user_id = $userId";
+        $sql = "SELECT * FROM Messages WHERE user_id = $userId";
         $result = Message::$conn->query($sql);
         if ($result->num_rows > 0) {
             $allMsg = array();
@@ -88,7 +88,7 @@ class Message{
     
     public function createMessage(){
         if($this->id == -1){
-            $sql = "INSERT INTO Messages (text, user_id) VALUES ('$this->text', $this->user_id)";
+            $sql = "INSERT INTO Messages (text, user_id, admin_id) VALUES ('$this->text', $this->userId, $this->adminId)";
             if(Message::$conn->query($sql)){
                 $this->id = Message::$conn->insert_id;
                 return true;

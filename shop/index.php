@@ -9,7 +9,13 @@
  }
  $loggedUser = (int)$_SESSION['loggedUserId'];
  ?>
-
-Hello!
-
 <a href="logout.php"> Logout </a>
+<br><br>
+
+<a href="messageFromAdmin.php">Wiadomosci</a>
+<br><br>
+
+<a href="controlPanel.php">Panel uzytkownika</a>
+<br><br>
+
+

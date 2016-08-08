@@ -24,23 +24,32 @@ class User {
     }
 
     public static function getUserByEmail($email){
-        $sql = "SELECT * FROM User WHERE email = '$email'";
-        //var_dump($sql);
+        $sql = "SELECT * FROM User WHERE User.email = '$email'";
         $result = USER::$conn->query($sql);
         if($result->num_rows == 1){
             $row = $result->fetch_assoc();
             $user = new User();
-            $user->setId($row['id']);
-            $user->setName($row['name']);
-            $user->setSurname($row['surname']);
-            $user->setEmail($row['email']);
-            $user->setPassword($row['password']);
+
             return $user;
         } else {
             return false;
         }
     }
-    
+
+    public static function getUserById($id){
+        $sql = "SELECT * FROM User WHERE id = '$id'";
+        $result = USER::$conn->query($sql);
+        if($result->num_rows == 1){
+            $row = $result->fetch_assoc();
+            $user = new User($row['id'], $row['name'], $row['surname'], $row['email'], $row['password']);
+
+            return $user;
+        } else {
+            return false;
+        }
+    }
+
+
     static private $conn;
 
     private $id;

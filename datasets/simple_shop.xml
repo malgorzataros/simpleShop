@@ -60,11 +60,12 @@
         user_id='2'
         admin_id='2'
     />
-    
+
     <Messages
         id='2'
         text='Platnosc przyjeta'
         user_id='1'
+<<<<<<< HEAD
         admin_id='2'
     />
      <Status
@@ -76,6 +77,15 @@
         status_name='Wyslane'
     />
 
+=======
+        admin_id='1'
+    />
+
+    <Status
+        id="1"
+        status_name=""
+    />
+>>>>>>> 6c15480d098245fceee762a061787108f03440aa
     <Order
         id='1'
         status='2'
