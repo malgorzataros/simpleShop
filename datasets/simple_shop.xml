@@ -66,6 +66,9 @@
         text='Platnosc przyjeta'
         user_id='1'
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 80afa7a2707632209273763a4ff52dfb4e8663f6
         admin_id='2'
     />
      <Status
@@ -77,6 +80,7 @@
         status_name='Wyslane'
     />
 
+<<<<<<< HEAD
 =======
         admin_id='1'
     />
@@ -86,6 +90,8 @@
         status_name=""
     />
 >>>>>>> 6c15480d098245fceee762a061787108f03440aa
+=======
+>>>>>>> 80afa7a2707632209273763a4ff52dfb4e8663f6
     <Order
         id='1'
         status='2'
