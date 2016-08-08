@@ -116,7 +116,7 @@ class Admin {
                     passwors = '$this->password',
                     WHERE id = $this->id";
         }
-        if (Adnim::$conn->query($sql) && Admin::$conn->affected_rows){
+        if (Admin::$conn->query($sql) && Admin::$conn->affected_rows){
             return $this;
         }
         else{

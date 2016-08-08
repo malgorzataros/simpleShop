@@ -3,7 +3,7 @@
 require_once 'connection.php';
 
 class Item {
-    
+
     static public function setConnection($newConnection){
         Item::$conn = $newConnection;
     }
@@ -14,7 +14,7 @@ class Item {
         if($result->num_rows > 0){
             $allItems = array();
             foreach ($result as $row){
-            $newItem = new Item($row['id'], $row['name'], $row['price'], $row['description'], $row['stored']);
+            $newItem = new Item($row['id'], $row['name'], $row['price'], $row['description'], $row['stored'], $row['categoryId']);
             $allItems[] = $newItem;
             }
             return $allItems;
@@ -27,13 +27,25 @@ class Item {
         $result = Item::$conn->query($sql);
         if($result->num_rows == 1){
             $row = $result->fetch_assoc();
-            $newItem = new Item($row['id'], $row['name'], $row['price'], $row['description'], $row['stored']);
+            $newItem = new Item($row['id'], $row['name'], $row['price'], $row['description'], $row['stored'], $row['categoryId']);
             return $newItem;
         }
         return false; 
     }
     
-    
+    static public function loadItemsByCategory($categoryId){
+        $sql = "SELECT * FROM Item WHERE category_id = $categoryId";
+        $result = Item::$conn->query($sql);
+        if ($result->num_rows > 0){
+            $selectedItems = [];
+            foreach ($result as $row){
+            $newItem = new Item($row['id'], $row['name'], $row['price'], $row['description'], $row['stored'], $row['categoryId']);
+            $selectedItems[] = $newItem;
+            }
+            return $selectedItems;
+        }
+        return [];
+    }
     
     private static $conn;
     
@@ -42,14 +54,16 @@ class Item {
     private $price;
     private $description;
     private $stored;
+    private $categoryId;
     
     
-    public function __construct($newId, $newName, $newPrice, $newDescription, $newStored) {
+    public function __construct($newId, $newName, $newPrice, $newDescription, $newStored, $newCategoryId) {
         $this->setId($newId);    //Dlaczego tu było ustawione -1? NIe lepiej to załatwić w seterze?
         $this->setName($newName);
         $this->setPrice($newPrice);
         $this->setDescription($newDescription);
         $this->setStored($newStored);
+        $this->setCategoryId($newCategoryId);
     }
     
     public function setId($newId){
@@ -97,6 +111,15 @@ class Item {
         }
     }
     
+    public function setCategoryId($newCategoryId){
+        if (isset($newCategoryId) && is_numeric($newCategoryId)){
+            $this->categoryId = $newCategoryId;
+        }
+        else{
+            $this->categoryId = 0;
+        }
+    }
+    
     public function getId(){
         return $this->id;
     }
@@ -117,9 +140,13 @@ class Item {
         return $this->stored;
     }
     
+    public function getCategoryId(){
+        return $this->categoryId;
+    }
+    
     public function createItem(){
         if($this->id == -1){
-            $sql = "INSERT INTO Item (name, price, description, stored) VALUES ('$this->name', $this->price, '$this->description', $this->stored)";
+            $sql = "INSERT INTO Item (name, price, description, stored, category_id) VALUES ('$this->name', $this->price, '$this->description', $this->stored, $this->categoryId)";
             if (Item::$conn->query($sql)){
                 $this->id = Item::$conn->insert_id;
                 return TRUE;
@@ -132,12 +159,12 @@ class Item {
     }
     
     public function showItem(){
-        echo $this->id, $this->name, $this->price, $this->description, $this->stored; // poki co showItem w prosty sposob pozniej bedziemy to zmieniac
+        echo $this->id, $this->name, $this->price, $this->description, $this->stored, $this->categoryId; // poki co showItem w prosty sposob pozniej bedziemy to zmieniac
     }
     
     public function editItem (){
         if ($this->id != -1){
-            $sql = "UPDATE Item SET name = '$this->name', price = $this->price, description = '$this->description', stored = $this->stored";
+            $sql = "UPDATE Item SET name = '$this->name', price = $this->price, description = '$this->description', stored = $this->stored, category_id = $this->categoryId ";
             if(Item::$conn->query($sql && Item::$conn->affected_rows)){
                 return true;
             }
