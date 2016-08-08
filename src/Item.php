@@ -14,7 +14,8 @@ class Item {
         if($result->num_rows > 0){
             $allItems = array();
             foreach ($result as $row){
-            $newItem = new Item($row['id'], $row['name'], $row['price'], $row['description'], $row['stored'], $row['categoryId']);
+                var_dump($row);
+            $newItem = new Item($row['id'], $row['name'], $row['price'], $row['description'], $row['stored'], $row['category_id']);
             $allItems[] = $newItem;
             }
             return $allItems;
@@ -27,7 +28,7 @@ class Item {
         $result = Item::$conn->query($sql);
         if($result->num_rows == 1){
             $row = $result->fetch_assoc();
-            $newItem = new Item($row['id'], $row['name'], $row['price'], $row['description'], $row['stored'], $row['categoryId']);
+            $newItem = new Item($row['id'], $row['name'], $row['price'], $row['description'], $row['stored'], $row['category_id']);
             return $newItem;
         }
         return false; 
@@ -39,7 +40,7 @@ class Item {
         if ($result->num_rows > 0){
             $selectedItems = [];
             foreach ($result as $row){
-            $newItem = new Item($row['id'], $row['name'], $row['price'], $row['description'], $row['stored'], $row['categoryId']);
+            $newItem = new Item($row['id'], $row['name'], $row['price'], $row['description'], $row['stored'], $row['category_id']);
             $selectedItems[] = $newItem;
             }
             return $selectedItems;
@@ -159,7 +160,7 @@ class Item {
     }
     
     public function showItem(){
-        echo $this->id, $this->name, $this->price, $this->description, $this->stored, $this->categoryId; // poki co showItem w prosty sposob pozniej bedziemy to zmieniac
+        echo "Id: $this->id Name: $this->name Price: $this->price PLN Description: $this->description In store: $this->stored Category: $this->categoryId<br>"; // poki co showItem w prosty sposob pozniej bedziemy to zmieniac
     }
     
     public function editItem (){
