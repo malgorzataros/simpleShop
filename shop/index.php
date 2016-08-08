@@ -12,10 +12,10 @@
 <a href="logout.php"> Logout </a>
 <br><br>
 
-<a href="messageFromAdmin.php">Wiadomosci</a>
+<a href="messageFromAdmin.php">Messages</a>
 <br><br>
 
-<a href="controlPanel.php">Panel uzytkownika</a>
+<a href="controlPanel.php">Control panel</a>
 <br><br>
 
 

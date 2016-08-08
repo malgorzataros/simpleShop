@@ -1,7 +1,7 @@
 
 <?php
 
-$psw = 'qwerty';
+$psw = '1234';
 
 $hashedPsw = password_hash($psw, PASSWORD_DEFAULT);
 

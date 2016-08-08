@@ -14,10 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         
         $newUser = new User(-1, $name, $surname, $email, $password);
         var_dump($newUser);
+        $newUser->setHashPassword($password);
+        var_dump($newUser);
         
             if ($newUser->savetoDB()){
                 header("Location: login.php");
-              
             }
         else{
             echo "Something Went Wrong<br>";

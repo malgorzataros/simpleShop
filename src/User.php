@@ -93,8 +93,12 @@ class User {
     public function getEmail(){
         return $this->email;
     }
-    
+
     public function setPassword($password){
+        $this->password = is_string($password) ? $password : '';
+    }
+
+    public function setHashPassword($password){
         $this->password = is_string($password) ? password_hash($password, PASSWORD_DEFAULT) : '';
     }
     
@@ -106,10 +110,12 @@ class User {
         if($this->id == -1) {
             $sql = "INSERT INTO User(name, surname, email, password) VALUE ('$this->name', 
                    '$this->surname', '$this->email', '$this->password')";
+            var_dump($sql);
             if(User::$conn->query($sql)) {
                 $this->id = User::$conn->insert_id;
                 return $this;
             } else {
+                echo User::$conn->error;
                 return false;
             }
         }
@@ -118,11 +124,12 @@ class User {
                    name = '$this->name',
                    surname = '$this->surname', 
                    email = '$this->email',
-                   password = $this->password
-                   WHERE id = $this->id ";
+                   password = '$this->password'
+                   WHERE id = $this->id";
             if(User::$conn->query($sql)){
                 return $this;
             } else {
+                echo User::$conn->error;
                 return false;
             }
         }

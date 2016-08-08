@@ -98,6 +98,6 @@ class Message{
     }
     
     public function showMessage(){
-        echo $this->text;
+        echo "Message from Admin: " . $this->text;
     }
 }
