@@ -1,8 +1,23 @@
 <?php
 
 require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__.'/../src/connection.php';
 
-class UserTest extends PHPUnit_Framework_TestCase {
+class UserTest extends PHPUnit_Extensions_Database_TestCase {
+
+    public function getConnection(){
+        $conn = new PDO (
+            $GLOBALS['DB_DSN'],
+            $GLOBALS['DB_USER'],
+            $GLOBALS['DB_PASSWD']
+
+        );
+        return new PHPUnit_Extensions_Database_DB_DefaultDatabaseConnection($conn, $GLOBALS['DB_NAME']);
+    }
+
+    public function getDataSet(){
+        return $this->createFlatXMLDataSet(__DIR__.'/../datasets/simple_shop.xml');
+    }
     
     public function testConstructWithCorrectData(){
         $a = new User();

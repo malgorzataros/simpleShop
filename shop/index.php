@@ -15,4 +15,7 @@
 <a href="messageFromAdmin.php">Wiadomosci</a>
 <br><br>
 
+<a href="controlPanel.php">Panel uzytkownika</a>
+<br><br>
+
 

@@ -54,20 +54,24 @@
         stored='29'
     />
     
-<!--    <Messages
+    <Messages
         id='1'
         text='Towar wyslany'
         user_id='2'
         admin_id='1'
     />
-    
+
     <Messages
         id='2'
         text='Platnosc przyjeta'
         user_id='1'
-        admin_id='1'-->
+        admin_id='1'
     />
-      
+
+    <Status
+        id="1"
+        status_name=""
+    />
     <Order
         id='1'
         status='2'
